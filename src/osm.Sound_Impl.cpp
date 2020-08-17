@@ -71,8 +71,8 @@ int32_t Sound_Impl::GetSamples(Sample* samples, int32_t offset, int32_t count) {
         memcpy(samples, &(m_samples[offset]), count * sizeof(Sample));
         return count;
     }
-    if (m_proceduralObject.Function) {
-        m_proceduralObject.Function(m_proceduralObject.Object, samples, count);
+    if (m_proceduralObject) {
+        m_proceduralObject(samples, count);
         return count;
     }
 
@@ -81,7 +81,7 @@ int32_t Sound_Impl::GetSamples(Sample* samples, int32_t offset, int32_t count) {
 
 int32_t Sound_Impl::GetSampleCount() const {
     if (m_isDecompressed) return m_samples.size();
-    if (m_proceduralObject.Function) return 44100; // dummy
+    if (m_proceduralObject) return 44100; // dummy
 
     return m_decorder->GetSampleCount();
 }

@@ -72,11 +72,7 @@ enum class FFTWindow
     BlackmanHarris
 };
 
-using ProceduralSoundFunction = void(void* inObject, Sample* outSamples, int32_t inSize);
-struct ProceduralSoundObject {
-    void* Object;
-    ProceduralSoundFunction* Function;
-};
+using ProceduralSoundObject = std::function<void(Sample* outSamples, int32_t inCount)>;
 
 class Manager : public IReference {
 protected:
