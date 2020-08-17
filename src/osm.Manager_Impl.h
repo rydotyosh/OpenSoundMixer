@@ -73,6 +73,8 @@ public:
 
     Sound* CreateSound(const void* data, int32_t size, bool isDecompressed) override;
 
+    Sound* CreateProceduralSound(ProceduralSoundObject proceduralObject) override;
+
     int32_t Play(Sound* sound) override;
 
     bool IsPlaying(int32_t id) override;

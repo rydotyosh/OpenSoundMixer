@@ -183,6 +183,12 @@ Sound* Manager_Impl::CreateSound(const void* data, int32_t size, bool isDecompre
     return sound;
 }
 
+Sound* Manager_Impl::CreateProceduralSound(ProceduralSoundObject proceduralObject) {
+    auto sound = new Sound_Impl();
+    sound->SetProceduralFunction(proceduralObject);
+    return sound;
+}
+
 int32_t Manager_Impl::Play(Sound* sound) {
     if (sound == nullptr) return -1;
 

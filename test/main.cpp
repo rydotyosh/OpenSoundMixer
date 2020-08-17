@@ -142,7 +142,34 @@ int main(int argc, char** argv) {
     //================================================================================
     
 
-    
+    // Procedural Test
+    //================================================================================
+    Sleep(1000);
+    struct ob {
+        int m_count=0;
+        void proc(osm::Sample* samples, int count) { 
+            for (int i = 0; i < count; ++i) {
+                double v = 0;
+                int n = 44100 / 6;
+                double beat = m_count % n / (double)n;
+                int tick = m_count / n % 4;
+                double vels[] = {0.8, 0.4, 1.0, 0.4};
+                v += (std::rand() / (double)RAND_MAX - 0.5) * 5000.0 * pow(1 - beat, 2) * vels[tick];
+                double beat2 = (m_count + n * 2) % (n * 4) / (double)(n * 4);
+                v += pow(sin(m_count * 0.005), 0.2) * 10000.0 * pow(1 - beat2, 2);
+                samples[i].Left = v;
+                samples[i].Right = v;
+                m_count++;
+            }
+        }
+        static void func(void* x, osm::Sample* samples, int count) {
+            ((ob*)x)->proc(samples,count);
+        }
+    } obj;
+    osm::Sound* synth = manager->CreateProceduralSound({&obj, &ob::func});
+    manager->Play(synth);
+    //================================================================================
+
     // Fast Fourier Transform Test
     //================================================================================
     Sleep(1000);

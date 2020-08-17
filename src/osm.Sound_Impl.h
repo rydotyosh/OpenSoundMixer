@@ -25,6 +25,8 @@ private:
     //! decode a compressed data
     std::shared_ptr<Decorder> m_decorder;
 
+    ProceduralSoundObject m_proceduralObject;
+
     float m_loopStart;
     float m_loopEnd;
     bool isLoopMode = false;
@@ -36,6 +38,8 @@ public:
     bool Load(const void* data, int32_t size, bool isDecompressed);
     int32_t GetSamples(Sample* samples, int32_t offset, int32_t count);
     int32_t GetSampleCount() const;
+
+    void SetProceduralFunction(ProceduralSoundObject proceduralObject);
 
     float GetLoopStartingPoint() const override { return m_loopStart; }
 

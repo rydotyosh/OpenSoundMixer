@@ -72,6 +72,12 @@ enum class FFTWindow
     BlackmanHarris
 };
 
+using ProceduralSoundFunction = void(void* inObject, Sample* outSamples, int32_t inSize);
+struct ProceduralSoundObject {
+    void* Object;
+    ProceduralSoundFunction* Function;
+};
+
 class Manager : public IReference {
 protected:
     Manager() {}
@@ -83,6 +89,8 @@ public:
     virtual void Finalize() = 0;
 
     virtual Sound* CreateSound(const void* data, int32_t size, bool isDecompressed) = 0;
+
+    virtual Sound* CreateProceduralSound(ProceduralSoundObject pruceduralObject) = 0;
 
     virtual int32_t Play(Sound* sound) = 0;
 
